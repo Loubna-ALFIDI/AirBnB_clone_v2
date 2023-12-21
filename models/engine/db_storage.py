@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+ #!/usr/bin/python3
 """This module defines a class to manage file storage for hbnb clone"""
 from models.user import User
 from models.place import Place
@@ -77,4 +77,3 @@ class DBStorage:
         """delete from the current database session"""
         if obj:
             self.__session.delete(obj)
-
