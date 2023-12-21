@@ -29,6 +29,8 @@ class DBStorage:
             f"mysql+mysqldb://{hb_user}:{hb_pwd}@{hb_host}/{hb_db}",
             pool_pre_ping=True,
         )
+        if hb_env == "test":
+            Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None, id=None):
         """
@@ -63,6 +65,18 @@ class DBStorage:
                         keyName = ClassName + "." + str(obj.id)
                         result[keyName] = obj
         return result
+    
+    def reload(self):
+        """ reload method """
+        Base.metadata.create_all(self.__engine)
+        Session = scoped_session(
+            sessionmaker(bind=self.__engine, expire_on_commit=False)
+        )
+        self.__session = Session()
+
+    def search(self, cls, id):
+        """ def doc """
+        data = self.all(cls)
 
     def new(self, obj):
         """add new obj"""
@@ -77,3 +91,7 @@ class DBStorage:
         """delete from the current database session"""
         if obj:
             self.__session.delete(obj)
+
+    def close(self):
+        """doc meth"""
+        self.__session.close()
