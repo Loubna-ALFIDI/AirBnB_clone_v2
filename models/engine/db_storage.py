@@ -8,12 +8,13 @@ from models.amenity import Amenity
 from models.review import Review
 from models.base_model import Base
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, scoped_session
+from sqlalchemy.orm import sessionmaker, scoped_session, relationship
 from os import getenv
 
 
 class DBStorage:
     """db storage"""
+    cities = relationship('City', backref='state')
     __engine = None
     __session = None
     
