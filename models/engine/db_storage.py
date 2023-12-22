@@ -31,6 +31,17 @@ class DBStorage:
             pool_pre_ping=True,
         )
 
+        if hb_env == "test":
+            Base.metadata.drop_all(self.__engine)
+
+    def reload(self):
+        """ reload method """
+        Base.metadata.create_all(self.__engine)
+        Session = scoped_session(
+            sessionmaker(bind=self.__engine, expire_on_commit=False)
+        )
+        self.__session = Session()
+
     def all(self, cls=None, id=None):
         """
         Query all classes or specific one by ID
