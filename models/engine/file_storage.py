@@ -19,7 +19,6 @@ class FileStorage:
         else:
             return self.__objects
 
-
     def new(self, obj):
         """Adds new object to storage dictionary"""
         self.all().update({obj.to_dict()['__class__'] + '.' + obj.id: obj})
@@ -64,7 +63,3 @@ class FileStorage:
             if key in self.__objects:
                 del self.__objects[key]
                 self.save()
-            else:
-                pass
-        else:
-            pass
