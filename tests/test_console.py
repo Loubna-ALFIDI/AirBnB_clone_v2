@@ -54,6 +54,7 @@ class test_Console(unittest.TestCase):
     def test_documentation(self):
         """test documentation"""
         self.assertIsNotNone(console.__doc__)
+    
 
 if __name__ == '__main__':
     unittest.main()
