@@ -37,16 +37,17 @@ class DBStorage:
     def reload(self):
         """ reload method """
         Base.metadata.create_all(self.__engine)
-        Session = scoped_session(
+        self.__session = scoped_session(
             sessionmaker(bind=self.__engine, expire_on_commit=False)
         )
+        Session = self.__session
         self.__session = Session()
 
     def all(self, cls=None, id=None):
         """
         Query all classes or specific one by ID
         """
-        allClasses = [State, City]
+        allClasses = [State, City, User]
         result = {}
 
         if cls is not None:
