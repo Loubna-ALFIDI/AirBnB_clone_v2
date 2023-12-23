@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """ test console """
+from io import StringIO
 import unittest
 import console
 import sys
