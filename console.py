@@ -193,6 +193,23 @@ class HBNBCommand(cmd.Cmd):
                 if key not in HBNBCommand.valid_keys[class_name]:
                     continue
                 value = self.parse_var(param_list[1])
+                for value in param_list[1]:
+                    if isinstance(value, str):
+                        if value.startswith('"') and value.endswith('"'):
+                            try:
+                                value = str(value.strip('"').replace('_', ' ').replace('\\', ''))
+                            except ValueError:
+                                continue
+                        elif value.count('.') == 1: # if it has a point it is a float
+                            try:
+                                value = float(value)
+                            except ValueError:
+                                continue
+                        else:
+                            try:
+                                value = int(value)
+                            except ValueError:
+                                continue
                 if value is not None:
                     setattr(new_instance, key, value)
             else:
