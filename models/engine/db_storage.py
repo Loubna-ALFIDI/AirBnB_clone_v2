@@ -46,7 +46,7 @@ class DBStorage:
         """
         Query all classes or specific one by ID
         """
-        allClasses = [User, Place, State, City, Amenity, Review]
+        allClasses = [State, City]
         result = {}
 
         if cls is not None:
