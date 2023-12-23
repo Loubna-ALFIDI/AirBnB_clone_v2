@@ -14,7 +14,7 @@ from os import getenv
 
 class DBStorage:
     """db storage"""
-    cities = relationship('City', backref='state')
+
     __engine = None
     __session = None
     
@@ -37,17 +37,16 @@ class DBStorage:
     def reload(self):
         """ reload method """
         Base.metadata.create_all(self.__engine)
-        self.__session = scoped_session(
+        Session = scoped_session(
             sessionmaker(bind=self.__engine, expire_on_commit=False)
         )
-        Session = self.__session
         self.__session = Session()
 
     def all(self, cls=None, id=None):
         """
         Query all classes or specific one by ID
         """
-        allClasses = [State, City, User]
+        allClasses = [User, Place, State, City, Amenity, Review]
         result = {}
 
         if cls is not None:
