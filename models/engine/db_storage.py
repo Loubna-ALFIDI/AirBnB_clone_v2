@@ -8,12 +8,13 @@ from models.amenity import Amenity
 from models.review import Review
 from models.base_model import Base
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, scoped_session
+from sqlalchemy.orm import sessionmaker, scoped_session, relationship
 from os import getenv
 
 
 class DBStorage:
     """db storage"""
+    cities = relationship('City', backref='state')
     __engine = None
     __session = None
     
@@ -29,6 +30,17 @@ class DBStorage:
             f"mysql+mysqldb://{hb_user}:{hb_pwd}@{hb_host}/{hb_db}",
             pool_pre_ping=True,
         )
+
+        if hb_env == "test":
+            Base.metadata.drop_all(self.__engine)
+
+    def reload(self):
+        """ reload method """
+        Base.metadata.create_all(self.__engine)
+        Session = scoped_session(
+            sessionmaker(bind=self.__engine, expire_on_commit=False)
+        )
+        self.__session = Session()
 
     def all(self, cls=None, id=None):
         """
