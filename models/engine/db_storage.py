@@ -14,7 +14,7 @@ from os import getenv
 
 class DBStorage:
     """db storage"""
-    # cities = relationship('City', backref='state')
+    cities = relationship('City', backref='state')
     __engine = None
     __session = None
     
