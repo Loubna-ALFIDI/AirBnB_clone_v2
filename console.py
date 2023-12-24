@@ -24,7 +24,7 @@ class HBNBCommand(cmd.Cmd):
                'BaseModel': BaseModel, 'User': User, 'Place': Place,
                'State': State, 'City': City, 'Amenity': Amenity,
                'Review': Review
-              }
+    }
     valid_keys = {
         "BaseModel": ["id", "created_at", "updated_at"],
         "User": [
@@ -63,7 +63,7 @@ class HBNBCommand(cmd.Cmd):
              'number_rooms': int, 'number_bathrooms': int,
              'max_guest': int, 'price_by_night': int,
              'latitude': float, 'longitude': float
-            }
+    }
 
     def preloop(self):
         """Prints if isatty is false"""
@@ -277,16 +277,16 @@ class HBNBCommand(cmd.Cmd):
         print_list = []
 
         if args:
-            args = args.split(' ')[0]  # remove possible trailing args
+            args = args.split(" ")[0]  # remove possible trailing args
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            for obj in storage.all(HBNBCommand.classes[args]).values():
-                print_list.append(str(obj))
+            for k, v in storage.all().items():
+                if k.split(".")[0] == args:
+                    print_list.append(str(v))
         else:
-            for obj in storage.all().values():
-                print_list.append(str(obj))
-
+            for k, v in storage.all().items():
+                print_list.append(str(v))
         print(print_list)
 
     def help_all(self):
