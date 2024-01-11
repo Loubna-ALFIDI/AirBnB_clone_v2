@@ -8,6 +8,7 @@ import os
 
 env.hosts = ['100.25.161.163', '52.2.14.222']
 
+
 @task
 def do_pack():
     """ do pack commamnd
@@ -20,6 +21,7 @@ def do_pack():
     if local("{} && tar -cvzf {} web_static".format(mkdir, dirpath)).succeeded:
         return dirpath
     return None
+
 
 @task
 def do_deploy(archive_path):
