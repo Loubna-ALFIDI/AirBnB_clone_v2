@@ -1,10 +1,12 @@
 #!/usr/bin/python3
 # Deploy archive
 """Deploy archive"""
-from fabric.api import task, local, put, run
+from fabric.api import task, local, put, run, env
 from datetime import datetime
 import os
 
+
+env.hosts = ['100.25.161.163', '52.2.14.222']
 
 @task
 def do_pack():
@@ -20,15 +22,15 @@ def do_pack():
     return None
 
 @task
-def deploy(archive_path):
+def do_deploy(archive_path):
     """ do deploy commamnd
         sudo fab -f 2-do_deploy_web_static.py deploy:
-        archive_path=versions/web_static_20231004201306.tgz
+        archive_path=versions/web_static_20240111213956.tgz
         -i ~/.ssh/id_rsa -u ubuntu
     """
     try:
         if not os.path.exists(archive_path):
-            return None
+            return False
         fn_with_ext = os.path.basename(archive_path)
         fn_no_ext, ext = os.path.splitext(fn_with_ext)
         dpath = "/data/web_static/releases/"
