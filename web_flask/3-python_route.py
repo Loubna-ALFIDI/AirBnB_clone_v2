@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" module Hello Flask! """
+""" module python is cool"""
 from flask import Flask
 
 app = Flask(__name__)
