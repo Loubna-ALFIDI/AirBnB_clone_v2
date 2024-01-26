@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" module numbr roote """
+""" module number template """
 from flask import Flask
 from flask import render_template
 
